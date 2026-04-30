@@ -1,6 +1,6 @@
 <template>
 	<view class="page">
-		<navBar title="我的"></navBar>
+		<!-- <navBar title="我的"></navBar> -->
 		<view class="main">
 			<view class='userInfo'>
 			 <view style="margin-left: 8px;heigth:40rpx;display:flex;justify-content: center;align-items: center; margin-top:28px;">
@@ -40,7 +40,10 @@
 					</view>
 				</view>
 				<view class="plan">
-					<view class='plan-box' v-for="(item) in planList" :key="item.id">
+					<view class='plan-box' 
+					v-for="(item, index) in planList" 
+					:key="item.id"
+					@click="handlePlan(index)">
 						<view class='img'>
 							<u-image
 							:src="item.icon"
@@ -54,7 +57,10 @@
 				</view>
 			</view>
 			<view class='other'>
-				<view class='list' v-for="item in otherList" :key="item.id">
+				<view class='list' 
+				v-for="(item, index) in otherList" 
+				:key="item.id"
+				>
 					<view class='left'>
 						<view class='icon'>
 							<u-image
@@ -121,22 +127,22 @@
 					{
 						id:1,
 						icon:tempStop,
-						name:'临停订单'
+						name:'我的月卡'
 					},
 					{
 						id:2,
 						icon:tempStop,
-						name:'临停订单'
+						name:'分时套餐'
 					},
 					{
 						id:3,
 						icon:tempStop,
-						name:'临停订单'
+						name:'区域套餐'
 					},
 					{
 						id:4,
 						icon:tempStop,
-						name:'临停订单'
+						name:'充电订单'
 					},
 				],
 				otherList:[
@@ -167,6 +173,16 @@
 					}
 				]
 			};
+		},
+		methods: {
+			handlePlan(index) {
+				this.$u.route({
+								url: 'pages/myOrder/myOrder',
+								params: {
+									index
+								}
+							})
+			}
 		}
 	}
 </script>

@@ -101,6 +101,7 @@
 	margin-bottom:10px;
 	background-color: #FFFFFF;
 	padding:12px;
+	border-radius: 12px;
 	.header {
 		display:flex;
 		align-items: center;

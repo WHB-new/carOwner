@@ -1,8 +1,8 @@
 <template>
 	<view class="page">
-		<navBar title='我的订单'></navBar>
+		<!-- <navBar title='我的订单'></navBar> -->
 		<view class="main">
-			<view class='back'>
+			<view class='back' @click='handleBackToUser'>
 				<view class="icon">
 					<u-icon
 					name="arrow-left"
@@ -17,7 +17,6 @@
 			 @change="handleTabChange"
 			 name='name'
 			 active-color="#408FFF"
-			 font-size='15'
 			 gutter="24"
 			 ></u-tabs>
 			 
@@ -76,7 +75,7 @@
 						name:'全部订单'
 					},
 					{
-						name:'全部订单'
+						name:'当月订单'
 					}
 				],
 			    orderList:[
@@ -126,7 +125,16 @@
 			},
 			handleOrderChange(index){
 				this.orderCurrent = index;
+			},
+			handleBackToUser(){
+				this.$u.route({
+					type:'navigateBack',
+				})
 			}
+		},
+		onLoad(params){
+			console.log(params);
+			this.orderCurrent = params.index;
 		}
 	}
 </script>

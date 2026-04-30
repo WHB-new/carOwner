@@ -1,15 +1,16 @@
 <template>
 <view class="page">
-	<navBar title='首页'></navBar>
+	<!-- <navBar title='首页'></navBar> -->
 	<view class="main">
 		<view class="img">
-			<u-image
+			<!-- <u-image
 			:src="src"
 			width='100%'
 			mode="widthFix"
 			border-radius="8"
 			>
-			</u-image>
+			</u-image> -->
+			<u-swiper :list="adList"></u-swiper>
 		</view>
 		<view class="recommend">
 			<view class="title">
@@ -91,6 +92,12 @@
 						icon:add,
 						id:5
 					},
+				],
+				adList:[
+					adImg,
+					adImg,
+					adImg,
+					adImg
 				]
 			}
 		},
