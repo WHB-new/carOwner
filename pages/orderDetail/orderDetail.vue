@@ -1,7 +1,7 @@
 <template>
 	<view class='page'>
 		<view class="main">
-			<view class="back">
+			<view class="back" @click="handleBack">
 				<view class="icon">
 					<u-icon 
 					name='arrow-left' 
@@ -117,8 +117,25 @@
 							}
 						]
 					}
-				]
+				],
+				currentIndex:0,// 点击返回保留tabs
+				orderIndex:0,
 			};
+		},
+		methods: {
+			handleBack() {
+				this.$u.route({
+					type:'navigateBack',
+					params: {
+						index:this.currentIndex,
+						orderIndex: this.orderIndex
+					}
+				})
+			}
+		},
+		onLoad(params) {
+			this.currentIndex = params.tabCurrent ? params.tabCurrent : 0;
+			this.orderIndex = params.orderCurrent ? params.orderCurrent : 0
 		}
 	}
 </script>

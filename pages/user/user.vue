@@ -194,7 +194,7 @@
 	width: 100%;
 	height: 100%;
 	.main {
-		padding: 0 12px 50px 12px;
+		padding: 0 12rpx 50px 12rpx;
 		flex:1;
 		mix-blend-mode: color-burn;
 		background: url(@/static/image.png);
@@ -202,7 +202,7 @@
 		.userInfo {
 			display:flex;
 			.userIcon {
-				margin-right:8px;
+				margin-right:8rpx;
 				display:flex;
 				justify-content: center;
 				align-items: center;
@@ -248,10 +248,10 @@
 		}
 	    
 		.payBill {
-			border-radius: 12px;
+			border-radius: 12rpx;
 			background: #FFFFFF;
 			width: 100%;
-			margin-top:15px;
+			margin-top:15rpx;
 			padding: 16px 15px 17px 16px;
 			box-sizing:border-box;
 			.intro {
@@ -315,7 +315,7 @@
 						text-overflow: ellipsis;        
 						word-break: break-word;
 						font-family: PingFang SC;
-						font-size: 13rpx;
+						font-size: 13px;
 						font-weight: normal;
 						line-height: 21px;
 						letter-spacing: normal;
@@ -326,9 +326,9 @@
 		}
 	
 	    .other {
-			margin-top:10px;
+			margin-top:10rpx;
 			background-color: #fff;
-			border-radius: 12px;
+			border-radius: 12rpx;
 			width: 100%;
 			box-sizing: border-box;
 			padding:0 12px;

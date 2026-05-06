@@ -24,7 +24,7 @@
 				</view>
 			</view>
 		</view>
-		<view class="content">
+		<view class="content" v-if="Object.keys(orderInfo).length !== 0">
 			<view class='intro'>
 				<view class="intro-box"
 				v-for="(item, index) in orderInfo.intro"
@@ -39,10 +39,10 @@
 			</view>
 			<view class="content-footer">
 				<view class="time">
-					开始时间：{{orderInfo.time.startTime}}
+					开始时间：{{orderInfo.time.startTime ? orderInfo.time.startTime : 0}}
 				</view>
 				<view class="time">
-					结束时间：{{orderInfo.time.endTime}}
+					结束时间：{{orderInfo.time.endTime ? orderInfo.time.endTime : 0}}
 				</view>
 			</view>
 		</view>
@@ -92,6 +92,9 @@
 				  '充电量': 'eletro'
 				}
 			};
+		},
+		onLoad() {
+			console.log(orderInfo)
 		}
 	}
 </script>

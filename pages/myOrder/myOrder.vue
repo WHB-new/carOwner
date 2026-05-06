@@ -1,56 +1,94 @@
 <template>
-	<view class="page">
-		<!-- <navBar title='我的订单'></navBar> -->
-		<view class="main">
-			<view class='back' @click='handleBackToUser'>
-				<view class="icon">
-					<u-icon
-					name="arrow-left"
-					size="14"
-					color="#585E6D"></u-icon>
+		<view class="page">
+			<view class="main">
+				<mescroll-body
+				@init="mescrollInit"
+				@down="downCallback"
+				@up="upCallback"
+				:up="upOption"
+				:down="downOption">
+					<view class='sticky-box'>
+						<view class='back' @click='handleBackToUser'>
+							<view class="icon">
+								<u-icon
+								name="arrow-left"
+								size="14"
+								color="#585E6D"></u-icon>
+							</view>
+							<view class="txt">返回</view>
+						</view>
+						<u-tabs 
+						 :list="tabList" 
+						 :current="tabCurrent"
+						 @change="handleTabChange"
+						 name='name'
+						 active-color="#408FFF"
+						 gutter="24"
+						 ></u-tabs>
+					</view>
+				 
+				<view class='orderMain'>
+					<view class='orderTabs'>
+						<u-tabs
+						class='tabs'
+						:list="order"
+						:current="orderCurrent"
+						name='name'
+						:is-scroll='false'
+						@change="handleOrderChange"
+						item-width="78"
+						:show-bar='false'
+						>
+						</u-tabs>
+					</view>
+					<view class='orderList'>
+						<order 
+						v-for="item in orderList" 
+						:key='item.id'
+						:info='item'
+						@click.native="handleClickOrder(item.id,tabCurrent,orderCurrent)"></order>
+					</view>
 				</view>
-				<view class="txt">返回</view>
-			</view>
-			<u-tabs 
-			 :list="tabList" 
-			 :current="tabCurrent"
-			 @change="handleTabChange"
-			 name='name'
-			 active-color="#408FFF"
-			 gutter="24"
-			 ></u-tabs>
-			 
-			<view class='orderMain'>
-				<view class='orderTabs'>
-					<u-tabs
-					class='tabs'
-					:list="order"
-					name='name'
-					:is-scroll='false'
-					@change="handleOrderChange"
-					item-width="78"
-					:show-bar='false'
-					
-					>
-					</u-tabs>
-				</view>
-				<view class='orderList'>
-					<order 
-					v-for="item in orderList" 
-					:key='item.id'
-					:info='item'></order>
-				</view>
+				</mescroll-body>
 			</view>
 		</view>
-	</view>
 </template>
 
 <script>
+	import { apiOrder } from '../../api/mock'
 	import navBar from '@/components/navBar/navBar.vue'
 	import order from '@/components/order/order.vue'
+	import MescrollMixin from "@/uni_modules/mescroll-uni/components/mescroll-uni/mescroll-mixins.js"
+	import emptyIcon from '@/static/1.png'
 	export default {
+		mixins: [MescrollMixin], // 使用mixin
 		data() {
 			return {
+				// mescroll
+				downOption: {
+					offset: 50,
+					inOffsetRate: 1,
+					outOffsetRate: 0.2,
+					bottomOffset: 20,
+					minAngle: 45,
+					textInOffset: '下拉刷新',
+					textOutOffset: '松手刷新',
+					textLoading: '刷新中 ...'
+				},
+				upOption: {
+					page: {
+						num: 0, 
+						size: 10,
+					},
+					noMoreSize: 7,
+					textLoading: '加载中 ...',
+					textNoMore: '暂时没有更多数据，看看其他吧~',
+					empty: {
+						use: true,
+						icon: emptyIcon,
+						tip: '暂无订单数据',
+					}
+				},		
 				tabList:[
 					{
 						name:'临停月卡'
@@ -69,6 +107,7 @@
 					},
 				],
 				tabCurrent:0,
+				// orderTabs
 				orderCurrent:0,
 				order:[
 					{
@@ -78,63 +117,55 @@
 						name:'当月订单'
 					}
 				],
-			    orderList:[
-					// {
-					// 	icon:'',
-					// 	carNumber:'粤B12345',
-					// 	address:'前海大厦停车场',
-					// 	price:'79',
-					// 	time: {
-					// 		startTime:'2023-10-12 12:23',
-					// 		endTime:'2023-10-12 12:23'
-					// 	},
-					// 	type:1,
-					// 	intro: [
-					// 		{
-					// 			introName:'通行车场',
-					// 			introData:'鲤鱼门西街停车场、桂湾公园公共停车场、前海运动公园公共停车场'
-					// 		}
-					// 	],
-					// 	id:'001'
-					// }
-					{
-						icon:'',
-						carNumber:'粤B12345',
-						address:'前海大厦停车场',
-						price:'79',
-						time: {
-							startTime:'2023-10-12 12:23',
-							endTime:'2023-10-12 12:23'
-						},
-						type:1,
-						intro: [
-							{
-								introName:'套餐时长',
-								introData:'50小时',
-								}
-						],
-						id:'001'
-					}
-				]
+				orderList:[],
 			};
 		},
 		methods: {
-			handleTabChange(index){
+			handleTabChange(index) {
 				this.tabCurrent = index;
 				// 发请求请求数据
 			},
-			handleOrderChange(index){
+			handleOrderChange(index) {
+				console.log('出发了吗')
 				this.orderCurrent = index;
+				if (index != 0) {
+					this.orderList = [];
+					this.mescroll.endByPage(0, 0);
+				} else {
+					this.mescroll.resetUpScroll();
+				}
 			},
-			handleBackToUser(){
+			handleBackToUser() {
 				this.$u.route({
 					type:'navigateBack',
 				})
+			},
+			handleClickOrder(orderId, tabCurrent, orderCurrent) {
+				this.$u.route({
+					url:'pages/orderDetail/orderDetail',
+					params: {
+						id: orderId,
+						tabCurrent,
+						orderCurrent
+					}
+				})
+			},
+			async upCallback(page){
+				let result = await apiOrder(page.num, page.size);
+				let totalPage = result.totalPage;
+				let curPageLen = result.list.length ? result.list.length : 0;
+				if (page.num == 1) {
+					this.orderList = [];
+				};
+				this.orderList = [...this.orderList, ...result.list]
+				// console.log(curPageLen, totalPage);
+				this.mescroll.endByPage(curPageLen, totalPage);
 			}
 		},
 		onLoad(params){
 			console.log(params);
-			this.orderCurrent = params.index;
+			this.tabCurrent = params.index;
+			this.orderCurrent = params.orderIndex;
 		}
 	}
 </script>
@@ -145,6 +176,7 @@
 	flex-direction: column;
 	width: 100%;
 	height: 100%;
+	// height: 100%;
 	.main {
 		display:flex;
 		background-color: #EFF1F5;
@@ -195,5 +227,10 @@
 }
 .tabs {
 	
+}
+.sticky-box {
+	position:sticky;
+	top:0;
+	z-index:30;
 }
 </style>

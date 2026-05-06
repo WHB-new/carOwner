@@ -118,28 +118,24 @@
 	height: 100%;
 	.main {
 		flex:1;
-		padding:12px 12px 50px 12px;
+		padding:12rpx 12rpx 50px 12rpx;
 		display:flex;
 		flex-direction: column;
 		align-items: center;
 		.img {
 			width: 100%;
-			margin-bottom: 20px;
+			margin-bottom: 20rpx;
 		}
 		.recommend {
 			width: 100%;
 			.title {
 				width: 100%;
-				height: 24px;
 				.text {
-					padding-left:4px;
-					width: 64px;
-					height: 24px;
+					padding-left:4rpx;
 					font-family: PingFang SC;
 					font-size: 16px;
 					font-weight: 500;
 					line-height: 24px;
-					text-align: center;
 					letter-spacing: normal;
 					color: #1F2938;
 				}
@@ -148,7 +144,7 @@
 		    &-main {
 				  display: flex;
 				  flex-wrap: wrap;
-				  column-gap: 12px;
+				  column-gap: 12rpx;
 				// display: grid;
 				// grid-template-columns: repeat(auto-fill, minmax(35%, 169px));
 				// justify-content: space-between;
@@ -161,8 +157,8 @@
 					justify-content: space-between;
 					align-items: center;
 					background-color: #E5F0FF;
-					margin-top:12px;
-					border-radius: 8px;
+					margin-top:12rpx;
+					border-radius: 8rpx;
 					.box-left {
 						display:flex;
 						justify-content: space-between;
