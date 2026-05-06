@@ -5,7 +5,6 @@
 				<view class="icon">
 					<u-icon 
 					name='arrow-left' 
-					size='20'
 					color="#585E6D"></u-icon>
 				</view>
 				<view class="txt">
@@ -159,8 +158,8 @@
 			align-items: center;
 			height: 36px;
 			.icon {
-				width: 14px;
-				height: 22px;
+				width: 20px;
+				height: 20px;
 				display:flex;
 				justify-content: center;
 				align-items: center;
@@ -173,7 +172,6 @@
 				text-align: center;
 				letter-spacing: normal;
 				color: #585E6D;
-				margin-bottom:3px;
 			}
 		}
 		.detailList {
