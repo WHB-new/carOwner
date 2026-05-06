@@ -2,7 +2,7 @@
 <view class="page safe-bottom">
 	<view class="main">
 		<view class="img">
-			<u-swiper :list="adList"></u-swiper>
+			<u-swiper :list="adList" img-mode='scaleToFill'></u-swiper>
 		</view>
 		<view class="recommend">
 			<view class="title">
