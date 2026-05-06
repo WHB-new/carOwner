@@ -1,5 +1,5 @@
 <template>
-		<view class="page">
+		<view class="page safe-bottom">
 			<view class="main">
 				<mescroll-body
 				@init="mescrollInit"
@@ -12,7 +12,6 @@
 							<view class="icon">
 								<u-icon
 								name="arrow-left"
-								size="14"
 								color="#585E6D"></u-icon>
 							</view>
 							<view class="txt">返回</view>
@@ -29,17 +28,15 @@
 				 
 				<view class='orderMain'>
 					<view class='orderTabs'>
-						<u-tabs
-						class='tabs'
+						<u-subsection
 						:list="order"
 						:current="orderCurrent"
-						name='name'
-						:is-scroll='false'
 						@change="handleOrderChange"
-						item-width="78"
-						:show-bar='false'
+						bg-color="#ffffff"
+						mode="button"
+						button-color="#EFF1F5"
 						>
-						</u-tabs>
+						</u-subsection>
 					</view>
 					<view class='orderList'>
 						<order 
@@ -162,6 +159,10 @@
 				this.mescroll.endByPage(curPageLen, totalPage);
 			}
 		},
+		downCallback(){
+			this.orderList = [];
+			this.mescroll.resetUpScroll();
+		},
 		onLoad(params){
 			console.log(params);
 			this.tabCurrent = params.index;
@@ -170,7 +171,11 @@
 	}
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
+	.safe-bottom {
+	    padding-bottom: constant(safe-area-inset-bottom);
+	    padding-bottom: env(safe-area-inset-bottom);
+	}
 .page {
 	display:flex;
 	flex-direction: column;
@@ -190,7 +195,7 @@
 			// left:0;
 			background-color: #ffffff;
 			padding-left:12rpx;
-			height: 36px;
+			padding-top:7px;
 			display:flex;
 			align-items: center;
 			.icon {
@@ -201,7 +206,6 @@
 				align-items: center;
 			}
 			.txt {
-				height: 22px;
 				font-family: PingFang SC;
 				font-size: 14px;
 				font-weight: normal;
@@ -216,7 +220,7 @@
 			padding: 10px 12px 0 12px;
 			flex:1;
 			.orderTabs {
-				width: 152px;
+				width: 300rpx;
 				// height: 32px;
 			}
 			.orderList {

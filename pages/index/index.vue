@@ -1,15 +1,7 @@
 <template>
-<view class="page">
-	<!-- <navBar title='首页'></navBar> -->
+<view class="page safe-bottom">
 	<view class="main">
 		<view class="img">
-			<!-- <u-image
-			:src="src"
-			width='100%'
-			mode="widthFix"
-			border-radius="8"
-			>
-			</u-image> -->
 			<u-swiper :list="adList"></u-swiper>
 		</view>
 		<view class="recommend">
@@ -111,20 +103,25 @@
 </script>
 
 <style lang="scss" scoped>
+.safe-bottom {
+    padding-bottom: constant(safe-area-inset-bottom);
+    padding-bottom: env(safe-area-inset-bottom);
+}
 .page {
+	box-sizing: border-box;
 	display:flex;
 	flex-direction: column;
 	width: 100%;
 	height: 100%;
 	.main {
 		flex:1;
-		padding:12rpx 12rpx 50px 12rpx;
+		padding:12px 12px 0 12px;
 		display:flex;
 		flex-direction: column;
 		align-items: center;
 		.img {
 			width: 100%;
-			margin-bottom: 20rpx;
+			margin-bottom: 20px;
 		}
 		.recommend {
 			width: 100%;
@@ -144,7 +141,7 @@
 		    &-main {
 				  display: flex;
 				  flex-wrap: wrap;
-				  column-gap: 12rpx;
+				  column-gap: 12px;
 				// display: grid;
 				// grid-template-columns: repeat(auto-fill, minmax(35%, 169px));
 				// justify-content: space-between;
@@ -157,8 +154,8 @@
 					justify-content: space-between;
 					align-items: center;
 					background-color: #E5F0FF;
-					margin-top:12rpx;
-					border-radius: 8rpx;
+					margin-top:12px;
+					border-radius: 8px;
 					.box-left {
 						display:flex;
 						justify-content: space-between;

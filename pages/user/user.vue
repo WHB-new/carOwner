@@ -1,5 +1,5 @@
 <template>
-	<view class="page">
+	<view class="page safe-bottom">
 		<!-- <navBar title="我的"></navBar> -->
 		<view class="main">
 			<view class='userInfo'>
@@ -76,8 +76,7 @@
 					<view class="right">
 						<u-icon
 						name='arrow-right'
-						size='14rpx'>
-						
+						>
 						</u-icon>
 					</view>
 				</view>
@@ -188,13 +187,17 @@
 </script>
 
 <style lang="scss" scoped>
+.safe-bottom {
+	    padding-bottom: constant(safe-area-inset-bottom);
+	    padding-bottom: env(safe-area-inset-bottom);
+}
 .page {
 	display:flex;
 	flex-direction: column;
 	width: 100%;
 	height: 100%;
 	.main {
-		padding: 0 12rpx 50px 12rpx;
+		padding: 0 12px;
 		flex:1;
 		mix-blend-mode: color-burn;
 		background: url(@/static/image.png);
@@ -248,10 +251,10 @@
 		}
 	    
 		.payBill {
-			border-radius: 12rpx;
+			border-radius: 12px;
 			background: #FFFFFF;
 			width: 100%;
-			margin-top:15rpx;
+			margin-top:15px;
 			padding: 16px 15px 17px 16px;
 			box-sizing:border-box;
 			.intro {
@@ -293,7 +296,7 @@
 				display:flex;
 				justify-content: center;
 				align-items: center;
-				margin-top: 15px;
+				margin-top: 15rpx;
 				&-box {
 					flex:1;
 					display:flex;
@@ -326,9 +329,9 @@
 		}
 	
 	    .other {
-			margin-top:10rpx;
+			margin-top:10px;
 			background-color: #fff;
-			border-radius: 12rpx;
+			border-radius: 12px;
 			width: 100%;
 			box-sizing: border-box;
 			padding:0 12px;
@@ -349,7 +352,6 @@
 						}
 						.name {
 							margin-left:3px;
-							height: 22px;
 							font-family: PingFang SC;
 							font-size: 14px;
 							font-weight: normal;
@@ -359,6 +361,8 @@
 						}
 					}
 					.right {
+						width: 14px;
+						height: 14px;
 						display:flex;
 						justify-content: center;
 						align-items: center;

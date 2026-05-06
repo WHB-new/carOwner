@@ -1,5 +1,5 @@
 <template>
-	<view class='page'>
+	<view class='page safe-bottom'>
 		<view class="main">
 			<view class="back" @click="handleBack">
 				<view class="icon">
@@ -140,7 +140,11 @@
 	}
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
+.safe-bottom {
+	    padding-bottom: constant(safe-area-inset-bottom);
+	    padding-bottom: env(safe-area-inset-bottom);
+	}
 .page {
 	display:flex;
 	flex-direction: column;

@@ -49,10 +49,10 @@
 		<view class="footer">
 			<view class='right'>
 				<view>
-					<u-button :custom-style="firstButton">对账单有疑问</u-button>
+					<u-button :custom-style="firstButton" size="medium">对账单有疑问</u-button>
 				</view>
-				<view >
-					<u-button :custom-style="secondButton">开发票</u-button>
+				<view>
+					<u-button :custom-style="secondButton" size="medium">开发票</u-button>
 				</view>
 			</view>
 		</view>
