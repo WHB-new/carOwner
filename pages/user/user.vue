@@ -6,7 +6,7 @@
 			 <view style="margin-left: 8px;heigth:40rpx;display:flex;justify-content: center;align-items: center; margin-top:28px;">
 				 <view class="userIcon">
 				 	<u-image
-				 	:src="userInfo && userInfo.headImgUrl? userInfo.headImgUrl : userIcon"
+				 	:src="userInfo && userInfo.logo? userInfo.logo : userIcon"
 				 	width="100%"
 				 	height="100%"
 				 	></u-image>
