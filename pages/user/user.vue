@@ -6,13 +6,13 @@
 			 <view style="margin-left: 8px;heigth:40rpx;display:flex;justify-content: center;align-items: center; margin-top:28px;">
 				 <view class="userIcon">
 				 	<u-image
-				 	:src="userInfo.userIcon"
+				 	:src="userInfo && userInfo.headImgUrl? userInfo.headImgUrl : userIcon"
 				 	width="100%"
 				 	height="100%"
 				 	></u-image>
 				 </view>
-				 <view class="userName">
-				 	{{userInfo.userName}}
+				 <view class="userName" @click='handleLogin'>
+				 	{{userInfo && userInfo.userName ? userInfo.userName : '未登录，点击登录'}}
 				 </view>
 			 </view>
 			</view>
@@ -90,16 +90,16 @@
 	import userIcon from '@/static/userIcon.svg'
 	import tempStop from '@/static/temp-stop.svg'
 	import invoice from '@/static/Invoice.svg'
+	import {getUserInfo} from '@/api/login.js'
+	import { checkNeedToLogin } from '../../utils/login'
 	export default {
 		components: {
 			navBar,
 		},
 		data() {
 			return {
-				userInfo: {
-					userName: '15u40912u0941u',
-					userIcon: userIcon
-				},
+				userIcon:userIcon,
+				userInfo:{},
 				info: [
 					{
 						id:0,
@@ -176,12 +176,25 @@
 		methods: {
 			handlePlan(index) {
 				this.$u.route({
-								url: 'pages/myOrder/myOrder',
-								params: {
-									index
-								}
-							})
+					url: 'pages/myOrder/myOrder',
+					params: {
+						index
+						}
+					})
+			},
+			handleLogin() {
+				this.$u.route({
+					url:'pages/login/login'
+				})
 			}
+		},
+		onLoad(e){
+			getUserInfo().then(res=>{
+				this.userInfo = res.data;
+				console.log(res)
+			}).catch(err => {
+				console.log(err,'UserErr')
+			})
 		}
 	}
 </script>

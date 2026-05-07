@@ -20,6 +20,7 @@
 
 <script>
 	import orderInfo from '@/components/orderInfo/orderInfo.vue'
+	import { checkNeedToLogin } from '../../utils/login';
 	import adImg from '@/static/ad.png'
 	export default {
 		data() {
@@ -133,6 +134,7 @@
 			}
 		},
 		onLoad(params) {
+			checkNeedToLogin(params);
 			this.currentIndex = params.tabCurrent ? params.tabCurrent : 0;
 			this.orderIndex = params.orderCurrent ? params.orderCurrent : 0
 		}

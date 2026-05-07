@@ -1,7 +1,9 @@
 <script>
+	import { invokeRoute } from './utils/login'
 	export default {
 		onLaunch: function() {
-			console.log('App Launch')
+			console.log('App Launch');
+			invokeRoute();
 		},
 		onShow: function() {
 			console.log('App Show')

@@ -57,6 +57,7 @@
 	import order from '@/components/order/order.vue'
 	import MescrollMixin from "@/uni_modules/mescroll-uni/components/mescroll-uni/mescroll-mixins.js"
 	import emptyIcon from '@/static/1.png'
+    import { checkNeedToLogin } from '../../utils/login'
 	export default {
 		mixins: [MescrollMixin], // 使用mixin
 		data() {
@@ -164,7 +165,7 @@
 			this.mescroll.resetUpScroll();
 		},
 		onLoad(params){
-			console.log(params);
+			checkNeedToLogin(params)
 			this.tabCurrent = params.index;
 			this.orderCurrent = params.orderIndex;
 		}
