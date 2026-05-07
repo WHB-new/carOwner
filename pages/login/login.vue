@@ -38,7 +38,7 @@
 				<u-button @click='throttleSubmit'
 				size='default'
 				type='primary'
-				:disabled="!canSubmit">提交</u-button>
+				>提交</u-button>
 			</view>
 
 		</view>
@@ -120,7 +120,14 @@
 			},
 
 		    async handleSubmit() {
-				if (!this.canSubmit) return;
+				if (!this.phone || !this.smsCode) {
+					const info = `请输入${this.phone?'':'手机号'}${this.smsCode?'':'验证码'}`
+					this.$refs.uToast.show({
+						title:info,
+						type:'info'
+					})
+					return;
+				};
 				const bizId = uni.getStorageSync('bizId')
 				const options = {
 					phone:this.phone,
