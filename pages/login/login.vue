@@ -10,7 +10,8 @@
 				:border="true"
 				:trim='true'
 				maxlength="13"
-				:focus="true"></u-input>
+				:focus="true"
+				:clearable='false'></u-input>
 			</view>
 			<view class='smsCode'>
 				<u-input
@@ -19,10 +20,12 @@
 				:border='true'
 				placeholder="请输入验证码"
 				maxlength="7"
-				:trim='true'>
+				:trim='true'
+				:clearable='false'>
 					
 				</u-input>
 				<u-button
+				:custom-style="codeButtonStyle"
 				@click.native="handleGetCode"
 				size="mini"
 				:type="canGetCode && !smsCodeLoading? 'primary' :'default'"
@@ -33,7 +36,7 @@
 			</view>
 			<view class='submit'>
 				<u-button @click='throttleSubmit'
-				size='medium'
+				size='default'
 				type='primary'
 				:disabled="!canSubmit">提交</u-button>
 			</view>
@@ -43,8 +46,8 @@
 </template>
 
 <script>
-	import {getSmsCode, loginOrRegister} from '@/api/login.js'
-	import {throttle } from '@/utils/common.js'
+	import { getSmsCode, loginOrRegister } from '@/api/login.js'
+	import { throttle } from '@/utils/common.js'
 	export default {
 		data() {
 			return {
@@ -52,6 +55,10 @@
 				smsCode:'',
 				codeTime:60,//获取验证码倒计时
 				smsCodeLoading:false,
+				codeButtonStyle: {
+					height:'72rpx',
+					marginLeft:'8rpx'
+				}
 			};
 		},
 		computed: {
