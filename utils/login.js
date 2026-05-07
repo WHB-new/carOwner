@@ -46,6 +46,7 @@ export function checkNeedToLogin(query) {
 			return `${item}=${query[item]}`
 		}).join('&')
 	}
+	console.log('登录失败')
 	const fullPath = queryString ? `${currentPagePath}?${queryString}` : currentPagePath
 	uni.setStorageSync(tempPath, fullPath)
 	uni.reLaunch({

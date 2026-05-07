@@ -135,6 +135,7 @@
 		},
 		onLoad(params) {
 			checkNeedToLogin(params);
+			console.log('创建出来了')
 			this.currentIndex = params.tabCurrent ? params.tabCurrent : 0;
 			this.orderIndex = params.orderCurrent ? params.orderCurrent : 0
 		}
