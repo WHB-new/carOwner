@@ -124,12 +124,15 @@
 		},
 		methods: {
 			handleBack() {
-				this.$u.route({
-					type:'navigateBack',
-					params: {
-						index:this.currentIndex,
-						orderIndex: this.orderIndex
-					}
+				// this.$u.route({
+				// 	type:'navigateBack',
+				// 	params: {
+				// 		index:this.currentIndex,
+				// 		orderIndex: this.orderIndex
+				// 	}
+				// })
+				uni.reLaunch({
+					url:`/pages/myOrder/myOrder?index=${this.currentIndex}&orderIndex=${this.orderIndex}`
 				})
 			}
 		},

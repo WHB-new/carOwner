@@ -32,7 +32,7 @@
 				</u-button>
 			</view>
 			<view class='submit'>
-				<u-button @click.native='handleTest'
+				<u-button @click.native='handleSubmit'
 				size='medium'
 				type='primary'>提交</u-button>
 			</view>
@@ -103,26 +103,7 @@
 				  })
 			  }
 			},
-			async handleTest () {
-				const tempPath = uni.getStorageSync('TEMP_PATH');
-				if (tempPath) {
-						uni.redirectTo({
-							url:tempPath,
-							success:()=>{
-								uni.removeStorageSync('TEMP_PATH')
-							},
-							fail:(err)=>{
-								uni.reLaunch({
-									url:tempPath
-								})
-							}
-						})
-				} else {
-					uni.switchTab({
-					  url: '/pages/index/index'
-					})
-				}
-			},
+
 		    async handleSubmit() {
 				const bizId = uni.getStorageSync('bizId')
 				const options = {
@@ -144,7 +125,12 @@
 								uni.redirectTo({
 									url:tempPath,
 									success:()=>{
-										uni.clearStorageSync('TEMP_PATH')
+										uni.removeStorageSync('TEMP_PATH')
+									},
+									fail:(err)=>{
+										uni.reLaunch({
+											url:tempPath
+										})
 									}
 								})
 						} else {

@@ -134,8 +134,8 @@
 				}
 			},
 			handleBackToUser() {
-				this.$u.route({
-					type:'navigateBack',
+				uni.reLaunch({
+					url:'/pages/user/user'
 				})
 			},
 			handleClickOrder(orderId, tabCurrent, orderCurrent) {
