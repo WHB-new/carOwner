@@ -124,13 +124,6 @@
 		},
 		methods: {
 			handleBack() {
-				// this.$u.route({
-				// 	type:'navigateBack',
-				// 	params: {
-				// 		index:this.currentIndex,
-				// 		orderIndex: this.orderIndex
-				// 	}
-				// })
 				uni.reLaunch({
 					url:`/pages/myOrder/myOrder?index=${this.currentIndex}&orderIndex=${this.orderIndex}`
 				})
@@ -138,7 +131,6 @@
 		},
 		onLoad(params) {
 			checkNeedToLogin(params);
-			console.log('创建出来了')
 			this.currentIndex = params.tabCurrent ? params.tabCurrent : 0;
 			this.orderIndex = params.orderCurrent ? params.orderCurrent : 0
 		}
@@ -149,7 +141,7 @@
 .safe-bottom {
 	    padding-bottom: constant(safe-area-inset-bottom);
 	    padding-bottom: env(safe-area-inset-bottom);
-	}
+}
 .page {
 	display:flex;
 	flex-direction: column;

@@ -32,9 +32,10 @@
 				</u-button>
 			</view>
 			<view class='submit'>
-				<u-button @click.native='handleSubmit'
+				<u-button @click='throttleSubmit'
 				size='medium'
-				type='primary'>提交</u-button>
+				type='primary'
+				:disabled="!canSubmit">提交</u-button>
 			</view>
 
 		</view>
@@ -43,19 +44,26 @@
 
 <script>
 	import {getSmsCode, loginOrRegister} from '@/api/login.js'
+	import {throttle } from '@/utils/common.js'
 	export default {
 		data() {
 			return {
 				phone:'',
 				smsCode:'',
-				codeTime:60,
+				codeTime:60,//获取验证码倒计时
 				smsCodeLoading:false,
 			};
 		},
 		computed: {
 			canGetCode(){
 				return this.phone && this.phone.length >10
+			},
+			canSubmit(){
+				return (this.phone && this.phone.length >10) && (this.smsCode && this.smsCode.length >3);
 			}
+		},
+		created(){
+			this.throttleSubmit = throttle(this.handleSubmit, 2000)
 		},
 		methods: {
 			async handleGetCode() {
@@ -105,6 +113,7 @@
 			},
 
 		    async handleSubmit() {
+				if (!this.canSubmit) return;
 				const bizId = uni.getStorageSync('bizId')
 				const options = {
 					phone:this.phone,

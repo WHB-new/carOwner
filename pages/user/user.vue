@@ -183,6 +183,10 @@
 					})
 			},
 			handleLogin() {
+				const token = uni.getStorageSync('userToken')
+				if (!!token) {
+					return;
+				}
 				this.$u.route({
 					url:'pages/login/login'
 				})
