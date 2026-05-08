@@ -190,7 +190,8 @@
 				})
 			}
 		},
-		onLoad(e){
+		onShow(e){
+			console.log('发送请求')
 			this.$store.dispatch('user/getUserInfo')
 		},
 		computed:{

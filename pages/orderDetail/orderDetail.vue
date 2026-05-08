@@ -1,6 +1,7 @@
 <template>
 	<view class='page safe-bottom'>
 		<view class="main">
+
 			<view class="back" @click="handleBack">
 				<view class="icon">
 					<u-icon 
@@ -11,6 +12,10 @@
 					返回
 				</view>
 			</view>
+<!-- 			<u-navbar
+			back-text="返回"
+			height='36'
+			back-icon-size='30'></u-navbar> -->
 			<view class='detailList'>
 				<orderInfo v-for="item in orderInfoList" :key="item.id" :list='item'></orderInfo>
 			</view>

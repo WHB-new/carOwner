@@ -10,10 +10,12 @@ const actions = {
 	// 获取用户信息
 	getUserInfo({commit,state}){
 		// 防止userInfo存在时重复发送请求
+		console.log(state.userInfo,'userInfo')
 		if (Object.keys(state.userInfo).length !== 0) return;
 		apiUserInfo().then((res)=>{
 			if (res.code === 0 && res.data) {
 				commit('GET_USERINFO', res.data)
+				console.log('进来了吗',res.data)
 			}
 		}).catch(err=>{
 			console.log(err)
@@ -41,6 +43,7 @@ const mutations = {
 		state.bizId = item
 	},
 	SAVE_USERPHONE(state, item) {
+		console.log(item)
 		state.userPhone = item
 	}
 }

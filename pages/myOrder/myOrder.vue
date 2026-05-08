@@ -1,21 +1,10 @@
 <template>
 			<view class="page-warp">
-
-				<view class="top-warp">
-
-					<view class='sticky-box'>
-						<!-- <view class='back' @click='handleBackToUser'>
-							<view class="icon">
-								<u-icon
-								name="arrow-left"
-								color="#585E6D"></u-icon>
-							</view>
-							<view class="txt">返回</view>
-						</view> -->
-				<u-navbar
+				<!-- back-text="返回" -->
+<!-- 				<u-navbar
 				back-text="返回"
 				height='36'
-				back-icon-size='30'></u-navbar>
+				back-icon-size='30'></u-navbar> -->
 						<u-tabs 
 						 :list="tabList" 
 						 :current="tabCurrent"
@@ -24,6 +13,18 @@
 						 active-color="#408FFF"
 						 gutter="24"
 						 ></u-tabs>
+				<view class="top-warp">
+
+					<view class='sticky-box'>
+						<view class='back' @click='handleBackToUser'>
+							<view class="icon">
+								<u-icon
+								name="arrow-left"
+								color="#585E6D"></u-icon>
+							</view>
+							<view class="txt">返回</view>
+						</view>
+
 					</view>
 				</view>
 				
