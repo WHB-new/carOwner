@@ -1,213 +1,143 @@
 <template>
-	<view class='page safe-bottom'>
-		<u-toast ref="uToast" />
-		<view class='main'>
-			<view class='input'>
-				<u-input
-				type='number'
-				v-model='phone'
-				placeholder="请输入手机号"
-				:border="true"
-				:trim='true'
-				maxlength="13"
-				:focus="true"
-				:clearable='false'></u-input>
+<view class="wrap">
+		<view class="top"></view>
+		<view class="content">
+			<view class="title">欢迎登录前海</view>
+			<input class="u-border-bottom" type="number" v-model="phone" placeholder="请输入手机号" />
+			<view class="tips">未注册的手机号验证后自动创建车主账号</view>
+			<button @tap="throttleSubmit" :style="[inputStyle]" class="getCaptcha">获取短信验证码</button>
+			<view class="alternative">
+				<view class="password">密码登录</view>
+				<view class="issue">遇到问题</view>
 			</view>
-			<view class='smsCode'>
-				<u-input
-				type='number'
-				v-model="smsCode"
-				:border='true'
-				placeholder="请输入验证码"
-				maxlength="7"
-				:trim='true'
-				:clearable='false'>
-					
-				</u-input>
-				<u-button
-				:custom-style="codeButtonStyle"
-				@click.native="handleGetCode"
-				size="mini"
-				:type="canGetCode && !smsCodeLoading? 'primary' :'default'"
-				:disabled='!canGetCode || smsCodeLoading'
-				>
-					{{!smsCodeLoading? '获取验证码' : `剩余${codeTime}`}}
-				</u-button>
+		</view>
+		<view class="buttom">
+			<view class="loginType">
+				<view class="wechat item">
+					<view class="icon"><u-icon size="70" name="weixin-fill" color="rgb(83,194,64)"></u-icon></view>
+					微信
+				</view>
+				<view class="QQ item">
+					<view class="icon"><u-icon size="70" name="qq-fill" color="rgb(17,183,233)"></u-icon></view>
+					QQ
+				</view>
 			</view>
-			<view class='submit'>
-				<u-button @click='throttleSubmit'
-				size='default'
-				type='primary'
-				>提交</u-button>
+			<view class="hint">
+				登录代表同意
+				<text class="link">前海用户协议、隐私政策，</text>
+				并授权使用您的前海账号信息（如昵称、头像、收获地址）以便您统一管理
 			</view>
-
 		</view>
 	</view>
 </template>
 
 <script>
-	import { getSmsCode, loginOrRegister } from '@/api/login.js'
 	import { throttle } from '@/utils/common.js'
 	export default {
 		data() {
 			return {
 				phone:'',
-				smsCode:'',
-				codeTime:60,//获取验证码倒计时
-				smsCodeLoading:false,
-				codeButtonStyle: {
-					height:'72rpx',
-					marginLeft:'8rpx'
-				},
 			};
 		},
 		computed: {
-			canGetCode(){
-				return this.phone && this.phone.length >10
-			},
-			canSubmit(){
-				return (this.phone && this.phone.length >10) && (this.smsCode && this.smsCode.length >3);
+			inputStyle() {
+				let style = {};
+				if(this.phone) {
+					style.color = "#fff";
+					style.backgroundColor = this.$u.color['warning'];
+				}
+				return style;
 			}
-		},
-		created(){
-			this.throttleSubmit = throttle(this.handleSubmit, 2000)
 		},
 		methods: {
-			async handleGetCode() {
-				let timer
-				if (!this.canGetCode) {
-					this.$refs.uToast.show({
-						title:'请先输入手机号',
-						type:'warning'
+			async submit() {
+				if(this.$u.test.mobile(this.phone)) {
+					await this.$store.dispatch('user/saveUserPhone', this.phone)
+					await this.$store.dispatch('user/getSmsCode')
+					uni.navigateTo({
+						url:'/pages/login/code'
 					})
-					return;
-				};
-			  try {
-				  let result = await getSmsCode(this.phone);
-				  if (result.code !== 0) {
-				  	this.$refs.uToast.show({
-						title:'获取验证码失败，请重新尝试',
-						type:'error'
-					});
-				  } else {
-					  timer = setInterval(()=>{
-					  		if (this.codeTime <= 0) {
-					  		clearTimeout(timer);
-					  		this.smsCodeLoading = false;
-					  	    this.codeTime = 60;
-					  		return;
-					  		}
-					  		this.smsCodeLoading = true;
-					  		this.codeTime = this.codeTime - 1;
-					  }, 1000)
-					  if (this.codeTime !== 60) {
-					  	this.$refs.uToast.show({
-					  		title:`请等待${this.codeTime}秒后再获取`,
-					  		type:'warning'
-					  	})
-					  	return;
-					  }
-					if (result.data && result.data.bizId) {
-						uni.setStorageSync('bizId', result.data.bizId);
-					}
-				  }
-			  } catch (err){
-				  this.$refs.uToast.show({
-				  	title:'获取验证码失败，请重新尝试',
-				  	type:'error'
-				  })
-			  }
-			},
-
-		    async handleSubmit() {
-				if (!this.phone || !this.smsCode) {
-					const info = `请输入${this.phone?'':'手机号'}${this.smsCode?'':'验证码'}`
-					this.$refs.uToast.show({
-						title:info,
-						type:'info'
-					})
-					return;
-				};
-				const bizId = uni.getStorageSync('bizId')
-				const options = {
-					phone:this.phone,
-					smsCode:this.smsCode,
-					bizId,
-					appType:'30'
-				}
-				let result = await loginOrRegister(options)
-				if (result.code === 0) {
-					if (result.data && result.data.accessToken) {
-						uni.setStorageSync('userToken',result.data.accessToken)
-						const tempPath = uni.getStorageSync('TEMP_PATH');
-						this.$refs.uToast.show({
-							title:result.data.msg,
-							type:'success',
-						})
-						if (tempPath) {
-								uni.redirectTo({
-									url:tempPath,
-									success:()=>{
-										uni.removeStorageSync('TEMP_PATH')
-									},
-									fail:(err)=>{
-										uni.reLaunch({
-											url:tempPath
-										})
-									}
-								})
-						} else {
-							uni.switchTab({
-							  url: '/pages/index/index'
-							})
-						}
-					} 
 				} else {
-					this.$refs.uToast.show({
-						title:result.data?.msg || result.msg,
-						type:'error'
+					uni.showToast({
+						title:'请输正确手机号',
+						icon:'error',
+						duration:1500,
 					})
 				}
-			}
-		
+			},
+		   throttleSubmit() {
+			   this.$u.throttle(this.submit, 1500)
+		   },
 		}
 	}
 </script>
 
 <style lang="scss" scoped>
-.safe-bottom {
-	    padding-bottom: constant(safe-area-inset-bottom);
-	    padding-bottom: env(safe-area-inset-bottom);
+.wrap {
+	font-size: 28rpx;
+	.content {
+		width: 600rpx;
+		margin: 80rpx auto 0;
+
+		.title {
+			text-align: left;
+			font-size: 60rpx;
+			font-weight: 500;
+			margin-bottom: 100rpx;
+		}
+		input {
+			text-align: left;
+			margin-bottom: 10rpx;
+			padding-bottom: 6rpx;
+			border-bottom:1px solid #FBFCFD;
+		}
+		.tips {
+			color: $u-type-info;
+			margin-bottom: 60rpx;
+			margin-top: 8rpx;
+		}
+		.getCaptcha {
+			background-color: rgb(253, 243, 208);
+			color: $u-tips-color;
+			border: none;
+			font-size: 30rpx;
+			padding: 12rpx 0;
+			
+			&::after {
+				border: none;
+			}
+		}
+		.alternative {
+			color: $u-tips-color;
+			display: flex;
+			justify-content: space-between;
+			margin-top: 30rpx;
+		}
+	}
+	.buttom {
+		.loginType {
+			display: flex;
+			padding: 350rpx 150rpx 150rpx 150rpx;
+			justify-content:space-between;
+			
+			.item {
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+				color: $u-content-color;
+				font-size: 28rpx;
+			}
+		}
+		
+		.hint {
+			padding: 20rpx 40rpx;
+			font-size: 20rpx;
+			color: $u-tips-color;
+			
+			.link {
+				color: $u-type-warning;
+			}
+		}
+	}
 }
-.page {
-	display:flex;
-	justify-content: center;
-	align-items: center;
-	width: 100%;
-	height: 100%;
-	.main {
-		flex:1;
-		display:flex;
-		flex-direction: column;
-		justify-content: center;
-		align-items: center;
-		.input {
-			width: 370rpx;
-			margin-bottom:15px
-		}
-		.smsCode {
-			width:370rpx;
-			margin-bottom:15px;
-			display:flex;
-			justify-content: center;
-			align-items: center;
-		}
-		.submit {
-			width: 100%;
-			display:flex;
-			justify-content: center;
-			align-items: center;
-		}
-	}
-	}
 </style>

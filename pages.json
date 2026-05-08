@@ -38,6 +38,12 @@
 			"style": {
 				"navigationBarTitleText": "注册登录"
 			}
+		},
+		{
+			"path": "pages/login/code",
+			"style": {
+				"navigationBarTitleText": ""
+			}
 		}
 	],
 	"globalStyle": {

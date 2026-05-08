@@ -1,21 +1,21 @@
 <template>
-		<view class="page safe-bottom">
-			<view class="main">
-				<mescroll-body
-				@init="mescrollInit"
-				@down="downCallback"
-				@up="upCallback"
-				:up="upOption"
-				:down="downOption">
+			<view class="page-warp">
+
+				<view class="top-warp">
+
 					<view class='sticky-box'>
-						<view class='back' @click='handleBackToUser'>
+						<!-- <view class='back' @click='handleBackToUser'>
 							<view class="icon">
 								<u-icon
 								name="arrow-left"
 								color="#585E6D"></u-icon>
 							</view>
 							<view class="txt">返回</view>
-						</view>
+						</view> -->
+				<u-navbar
+				back-text="返回"
+				height='36'
+				back-icon-size='30'></u-navbar>
 						<u-tabs 
 						 :list="tabList" 
 						 :current="tabCurrent"
@@ -25,30 +25,43 @@
 						 gutter="24"
 						 ></u-tabs>
 					</view>
-				 
-				<view class='orderMain'>
-					<view class='orderTabs'>
-						<u-subsection
-						:list="order"
-						:current="orderCurrent"
-						@change="handleOrderChange"
-						bg-color="#ffffff"
-						mode="button"
-						button-color="#EFF1F5"
-						>
-						</u-subsection>
-					</view>
-					<view class='orderList'>
-						<order 
-						v-for="item in orderList" 
-						:key='item.id'
-						:info='item'
-						@click.native="handleClickOrder(item.id,tabCurrent,orderCurrent)"></order>
+				</view>
+				
+				<view class="center-warp">
+					<view class="right-warp">
+						<mescroll-uni 
+						:fixed="false"
+						@init="mescrollInit" 
+						@down="downCallback" 
+						@up="upCallback"
+						:up='upOption'
+						:down='downOption'>
+							<view class='orderMain'>
+								<view class='orderTabs'>
+									<u-subsection
+									:list="order"
+									:current="orderCurrent"
+									@change="handleOrderChange"
+									bg-color="#ffffff"
+									mode="button"
+									button-color="#EFF1F5"
+									>
+									</u-subsection>
+								</view>
+								<view class='orderList'>
+									<order 
+									v-for="item in orderList" 
+									:key='item.id'
+									:info='item'
+									@click.native="handleClickOrder(item.id,tabCurrent,orderCurrent)"></order>
+								</view>
+							</view>
+						</mescroll-uni>
 					</view>
 				</view>
-				</mescroll-body>
+				
 			</view>
-		</view>
+
 </template>
 
 <script>
@@ -81,11 +94,6 @@
 					noMoreSize: 7,
 					textLoading: '加载中 ...',
 					textNoMore: '暂时没有更多数据，看看其他吧~',
-					empty: {
-						use: true,
-						icon: emptyIcon,
-						tip: '暂无订单数据',
-					}
 				},		
 				tabList:[
 					{
@@ -121,15 +129,17 @@
 		methods: {
 			handleTabChange(index) {
 				this.tabCurrent = index;
+				this.orderList = []
+				this.mescroll.resetUpScroll()
 				// 发请求请求数据
 			},
 			handleOrderChange(index) {
-				console.log('出发了吗')
 				this.orderCurrent = index;
 				if (index != 0) {
 					this.orderList = [];
 					this.mescroll.endByPage(0, 0);
 				} else {
+					this.orderList = [];
 					this.mescroll.resetUpScroll();
 				}
 			},
@@ -173,69 +183,76 @@
 </script>
 
 <style lang="scss" scoped>
-	.safe-bottom {
-	    padding-bottom: constant(safe-area-inset-bottom);
-	    padding-bottom: env(safe-area-inset-bottom);
-	}
-.page {
-	display:flex;
-	flex-direction: column;
-	width: 100%;
-	height: 100%;
-	// height: 100%;
-	.main {
-		display:flex;
-		background-color: #EFF1F5;
-		flex-direction: column;
-		padding:0 0 50px 0;
-		flex:1;
-		position:relative;
-		.back {
-			// position:absolute;
-			// top:0;
-			// left:0;
-			background-color: #ffffff;
-			padding-left:12rpx;
-			padding-top:7px;
-			display:flex;
-			align-items: center;
-			.icon {
-				width: 14px;
-				height: 14px;
-				display:flex;
-				justify-content: center;
-				align-items: center;
-			}
-			.txt {
-				font-family: PingFang SC;
-				font-size: 14px;
-				font-weight: normal;
-				line-height: 22px;
+	/*根元素需要有固定的高度*/
+	page{
+		height: 100%;
+		// 支付宝小程序,钉钉小程序需添加绝对定位,否则height:100%失效: https://opendocs.alipay.com/mini/framework/acss#%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98
+		/* #ifdef MP-ALIPAY || MP-DINGTALK*/
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		/* #endif */
+		
+		/*需给父元素设置height:100%*/
+		.page-warp{
+			height: 100%;
+			display: flex;
+			flex-direction: column;
+			background-color: #F5F6F7;
+			/* 顶部区域 */
+			.top-warp{
+				font-size: 28rpx;
+				// padding: 20rpx;
 				text-align: center;
-				letter-spacing: normal;
-				color: #585E6D;
+				.back {
+					background-color: #ffffff;
+					padding-left:12rpx;
+					padding-top:7px;
+					display:flex;
+					align-items: center;
+					.icon {
+						width: 14px;
+						height: 14px;
+						display:flex;
+						justify-content: center;
+						align-items: center;
+					}
+					.txt {
+						font-family: PingFang SC;
+						font-size: 14px;
+						font-weight: normal;
+						line-height: 22px;
+						text-align: center;
+						letter-spacing: normal;
+						color: #585E6D;
+					}
+				}
+				
 			}
-		}
-	    
-		.orderMain {
-			padding: 10px 12px 0 12px;
-			flex:1;
-			.orderTabs {
-				width: 300rpx;
-				// height: 32px;
-			}
-			.orderList {
-				margin-top:12px;
+			
+			/* 中间 */
+			.center-warp{
+				flex: 1;
+				min-width: 0;
+				min-height: 0;/* 需给flex:1的元素加上最小高,否则内容超过会溢出容器 (如:小程序Android真机) */
+				display: flex;
+				.right-warp{
+					flex: 1;
+					min-width: 0;
+					.orderMain {
+						padding: 10px 12px 0 12px;
+						flex:1;
+						.orderTabs {
+							width: 300rpx;
+							// height: 32px;
+						}
+						.orderList {
+							margin-top:12px;
+						}
+					}
+				}
 			}
 		}
 	}
-}
-.tabs {
-	
-}
-.sticky-box {
-	position:sticky;
-	top:0;
-	z-index:30;
-}
 </style>

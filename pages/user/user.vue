@@ -90,7 +90,6 @@
 	import userIcon from '@/static/userIcon.svg'
 	import tempStop from '@/static/temp-stop.svg'
 	import invoice from '@/static/Invoice.svg'
-	import {getUserInfo} from '@/api/login.js'
 	import { checkNeedToLogin } from '../../utils/login'
 	export default {
 		components: {
@@ -99,7 +98,6 @@
 		data() {
 			return {
 				userIcon:userIcon,
-				userInfo:{},
 				info: [
 					{
 						id:0,
@@ -193,21 +191,12 @@
 			}
 		},
 		onLoad(e){
-			const token = uni.getStorageSync('userToken')
-			const userInfo = uni.getStorageSync('userInfo')
-			// 判断过期 过期userInfo需要换 在请求那边拦截删除token，所以没token的时候默认过期或者没有
-			// 没过期userInfo存在就不发起请求了
-			if (!!token && !!userInfo) {
-				this.userInfo = userInfo;
-				return;
+			this.$store.dispatch('user/getUserInfo')
+		},
+		computed:{
+			userInfo(){
+				return this.$store.state.user.userInfo
 			}
-			getUserInfo().then(res=>{
-				this.userInfo = res.data;
-				uni.setStorageSync('userInfo',res.data);
-				console.log(res)
-			}).catch(err => {
-				console.log(err,'UserErr')
-			})
 		}
 	}
 </script>
