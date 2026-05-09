@@ -122,9 +122,10 @@
 		},
 		methods: {
 			abortAllRequest(){
-				requestTask.forEach(item => {
-					
+				this.requestTask.forEach(abort => {
+					abort();
 				})
+				this.requestTask.clear()
 			},
 			handleTabChange(index) {
 				this.tabCurrent = index;
@@ -134,13 +135,8 @@
 			},
 			handleOrderChange(index) {
 				this.orderCurrent = index;
-				if (index != 0) {
-					this.orderList = [];
-					this.mescroll.endByPage(0, 0);
-				} else {
-					this.orderList = [];
-					this.mescroll.resetUpScroll();
-				}
+				this.orderList = []
+				this.mescroll.resetUpScroll();
 			},
 			handleBackToUser() {
 				uni.redirectTo({
@@ -158,15 +154,27 @@
 				})
 			},
 			async upCallback(page){
-				let result = await apiOrder(page.num, page.size);
-				let totalPage = result.totalPage;
-				let curPageLen = result.list.length ? result.list.length : 0;
-				if (page.num == 1) {
-					this.orderList = [];
-				};
-				this.orderList = [...this.orderList, ...result.list]
-				// console.log(curPageLen, totalPage);
-				this.mescroll.endByPage(curPageLen, totalPage);
+				// 删除前面的请求，防止tabs切换出现数据不对的问题
+				const task = apiOrder(page.num, page.size, this.tabCurrent)
+				try {
+					// 最开始的第一轮发送的所有请求不用触发取消
+					if (this.requestTask.size !== 0) {
+						this.abortAllRequest();
+					}
+					this.requestTask.add(task.abort)
+					let result = await task;
+					let totalPage = result.totalPage;
+					let curPageLen = result.list.length
+					if (page.num == 1) {
+						this.orderList = [];
+					};
+					this.orderList = [...this.orderList, ...result.list]
+					this.mescroll.endByPage(curPageLen, totalPage);
+				}catch(err){
+					console.log(err)
+				}finally{
+					this.requestTask.delete(task.abort);
+				}
 			}
 		},
 		downCallback(){

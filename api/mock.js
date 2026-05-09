@@ -1,6 +1,6 @@
 import order from './order.js';
 
-export function apiOrder(pageNum, pageSize) {
+export function apiOrder(pageNum, pageSize, type) {
 	let isAborted = false;//是否取消 模拟
 	let timer = null;
 	const promise = new Promise((resolve, reject)=>{
@@ -17,29 +17,40 @@ export function apiOrder(pageNum, pageSize) {
 					totalPage: 0, // 总页数
 					hasNext: false // 是否有下一页
 				}
+				// 先筛选出对应type的数据
+				const typeList = order.filter(item => {
+					return item.type == type
+				})
+				if (typeList.length === 0) {
+					resolve(data)
+					return;
+				}
+				// 根据pageSize和pageNum做分页处理
 				for (let i = (pageNum - 1) * pageSize; i < pageNum * pageSize; i++) {
-					if (i > order.length) break;
-					data.list.push(order[i])
+					if (i > typeList.length) break;
+					data.list.push(typeList[i])
 				}
 				// 汇总数据
-				console.log(data, 'data数据');
-				data.totalCount = data.list.length;
-				data.totalPage = Math.ceil(100/pageSize);
+				data.totalCount = typeList.length;
+				data.totalPage = Math.ceil(typeList.length/pageSize);
 				data.hasNext = pageNum < data.totalPage;
 				resolve(data);
 			} catch(e){
 				console.log(e);
 			}
-			
-			 promise.abort = () => {
-			    if (isAborted) return;
-			    isAborted = true;
-			    if (timeoutId) {
-			      clearTimeout(timeoutId);
-			      timeoutId = null;
-			    }
-			  };
+
 		}, 1000);
+
 	})
+	
+	promise.abort = () => {
+	   if (isAborted) return;
+	   isAborted = true;
+	   if (timer) {
+	     clearTimeout(timer);
+		 console.log('成功取消这次请求了')
+	     timer = null;
+	   }
+	 };
 	return promise
 }
