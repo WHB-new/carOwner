@@ -67,7 +67,11 @@ const orders = [
       {
         "introName": "充电量",
         "introData": "15kWh"
-      }
+      },
+	  {
+		  "introName":'充电时长',
+		  "introData":'2小时32分50秒'
+	  }
     ],
     "id": "4"
   },
@@ -139,7 +143,11 @@ const orders = [
       {
         "introName": "充电量",
         "introData": "8kWh"
-      }
+      },
+	  {
+		  "introName":'充电时长',
+		  "introData":'2小时32分50秒'
+	  }
     ],
     "id": "8"
   },
@@ -211,7 +219,11 @@ const orders = [
       {
         "introName": "充电量",
         "introData": "22kWh"
-      }
+      },
+	  {
+		  "introName":'充电时长',
+		  "introData":'2小时32分50秒'
+	  }
     ],
     "id": "12"
   },
@@ -283,7 +295,11 @@ const orders = [
       {
         "introName": "充电量",
         "introData": "10kWh"
-      }
+      },
+	  {
+		  "introName":'充电时长',
+		  "introData":'2小时32分50秒'
+	  }
     ],
     "id": "16"
   },
@@ -355,7 +371,11 @@ const orders = [
       {
         "introName": "充电量",
         "introData": "18kWh"
-      }
+      },
+	  {
+		  "introName":'充电时长',
+		  "introData":'2小时32分50秒'
+	  }
     ],
     "id": "20"
   },
@@ -427,7 +447,11 @@ const orders = [
       {
         "introName": "充电量",
         "introData": "12kWh"
-      }
+      },
+	  {
+		  "introName":'充电时长',
+		  "introData":'2小时32分50秒'
+	  }
     ],
     "id": "24"
   },
@@ -499,7 +523,11 @@ const orders = [
       {
         "introName": "充电量",
         "introData": "25kWh"
-      }
+      },
+	  {
+		  "introName":'充电时长',
+		  "introData":'2小时32分50秒'
+	  }
     ],
     "id": "28"
   },
@@ -571,7 +599,11 @@ const orders = [
       {
         "introName": "充电量",
         "introData": "9kWh"
-      }
+      },
+	  {
+		  "introName":'充电时长',
+		  "introData":'2小时32分50秒'
+	  }
     ],
     "id": "32"
   },
@@ -643,7 +675,11 @@ const orders = [
       {
         "introName": "充电量",
         "introData": "7kWh"
-      }
+      },
+	  {
+		  "introName":'充电时长',
+		  "introData":'2小时32分50秒'
+	  }
     ],
     "id": "36"
   },
@@ -715,7 +751,11 @@ const orders = [
       {
         "introName": "充电量",
         "introData": "20kWh"
-      }
+      },
+	  {
+		  "introName":'充电时长',
+		  "introData":'2小时32分50秒'
+	  }
     ],
     "id": "40"
   },
@@ -787,7 +827,11 @@ const orders = [
       {
         "introName": "充电量",
         "introData": "11kWh"
-      }
+      },
+	  {
+		  "introName":'充电时长',
+		  "introData":'2小时32分50秒'
+	  }
     ],
     "id": "44"
   },
@@ -859,7 +903,11 @@ const orders = [
       {
         "introName": "充电量",
         "introData": "14kWh"
-      }
+      },
+	  {
+		  "introName":'充电时长',
+		  "introData":'2小时32分50秒'
+	  }
     ],
     "id": "48"
   },
@@ -931,7 +979,11 @@ const orders = [
       {
         "introName": "充电量",
         "introData": "30kWh"
-      }
+      },
+	  {
+		  "introName":'充电时长',
+		  "introData":'2小时32分50秒'
+	  }
     ],
     "id": "52"
   },
@@ -1003,7 +1055,11 @@ const orders = [
       {
         "introName": "充电量",
         "introData": "6kWh"
-      }
+      },
+	  {
+		  "introName":'充电时长',
+		  "introData":'2小时32分50秒'
+	  }
     ],
     "id": "56"
   },
@@ -1075,7 +1131,11 @@ const orders = [
       {
         "introName": "充电量",
         "introData": "13kWh"
-      }
+      },
+	  {
+		  "introName":'充电时长',
+		  "introData":'2小时32分50秒'
+	  }
     ],
     "id": "60"
   },
@@ -1147,7 +1207,11 @@ const orders = [
       {
         "introName": "充电量",
         "introData": "16kWh"
-      }
+      },
+	  {
+		  "introName":'充电时长',
+		  "introData":'2小时32分50秒'
+	  }
     ],
     "id": "64"
   },
@@ -1219,7 +1283,11 @@ const orders = [
       {
         "introName": "充电量",
         "introData": "19kWh"
-      }
+      },
+	  {
+		  "introName":'充电时长',
+		  "introData":'2小时32分50秒'
+	  }
     ],
     "id": "68"
   },
@@ -1291,7 +1359,11 @@ const orders = [
       {
         "introName": "充电量",
         "introData": "5kWh"
-      }
+      },
+	  {
+		  "introName":'充电时长',
+		  "introData":'2小时32分50秒'
+	  }
     ],
     "id": "72"
   },
@@ -1363,7 +1435,11 @@ const orders = [
       {
         "introName": "充电量",
         "introData": "4kWh"
-      }
+      },
+	  {
+		  "introName":'充电时长',
+		  "introData":'2小时32分50秒'
+	  }
     ],
     "id": "76"
   },
@@ -1435,7 +1511,11 @@ const orders = [
       {
         "introName": "充电量",
         "introData": "28kWh"
-      }
+      },
+	  {
+		  "introName":'充电时长',
+		  "introData":'2小时32分50秒'
+	  }
     ],
     "id": "80"
   }

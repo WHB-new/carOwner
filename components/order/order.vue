@@ -89,7 +89,8 @@
 				  '订单类型': 'addCard',
 				  '套餐时长': 'cutHour',
 				  '通行车场': 'placeOrder',
-				  '充电量': 'eletro'
+				  '充电量': 'eletro',
+				  "充电时长": 'eletro'
 				}
 			};
 		},
