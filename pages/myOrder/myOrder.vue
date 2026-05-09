@@ -1,30 +1,23 @@
 <template>
 			<view class="page-warp">
-				<!-- back-text="返回" -->
-<!-- 				<u-navbar
-				back-text="返回"
-				height='36'
-				back-icon-size='30'></u-navbar> -->
-						<u-tabs 
-						 :list="tabList" 
-						 :current="tabCurrent"
-						 @change="handleTabChange"
-						 name='name'
-						 active-color="#408FFF"
-						 gutter="24"
-						 ></u-tabs>
+
 				<view class="top-warp">
 
 					<view class='sticky-box'>
-						<view class='back' @click='handleBackToUser'>
-							<view class="icon">
-								<u-icon
-								name="arrow-left"
-								color="#585E6D"></u-icon>
-							</view>
-							<view class="txt">返回</view>
-						</view>
-
+					 <u-navbar
+					 back-text="返回"
+					 back-icon-size="28"
+					 :custom-back="handleBackToUser">
+						 
+					 </u-navbar>
+                     <u-tabs
+                      :list="tabList" 
+                      :current="tabCurrent"
+                      @change="handleTabChange"
+                      name='name'
+                      active-color="#408FFF"
+                      gutter="24"
+                      ></u-tabs>
 					</view>
 				</view>
 				
@@ -67,7 +60,6 @@
 
 <script>
 	import { apiOrder } from '../../api/mock'
-	import navBar from '@/components/navBar/navBar.vue'
 	import order from '@/components/order/order.vue'
 	import MescrollMixin from "@/uni_modules/mescroll-uni/components/mescroll-uni/mescroll-mixins.js"
 	import emptyIcon from '@/static/1.png'
@@ -145,7 +137,7 @@
 				}
 			},
 			handleBackToUser() {
-				uni.reLaunch({
+				uni.redirectTo({
 					url:'/pages/user/user'
 				})
 			},
@@ -184,6 +176,10 @@
 </script>
 
 <style lang="scss" scoped>
+	// 不允许换行 否则uView的导航栏设置back-text超过两个字会出现问题
+	::v-deep .u-navbar .u-back-text {
+	  white-space: nowrap;
+	}
 	/*根元素需要有固定的高度*/
 	page{
 		height: 100%;

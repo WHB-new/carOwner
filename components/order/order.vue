@@ -99,7 +99,7 @@
 	}
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .order {
 	margin-bottom:10px;
 	background-color: #FFFFFF;

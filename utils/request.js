@@ -28,7 +28,6 @@ const newRequest = (options = {}) => {
 							isRedirecting = false
 						},2000)
 						uni.removeStorageSync('userToken')
-						uni.removeStorageSync('userInfo')
 						uni.navigateTo({ url: '/pages/login/login' })
 						reject({ code: 401, message: '登录已过期，请重新登录' })
 					}

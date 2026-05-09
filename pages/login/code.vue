@@ -1,14 +1,21 @@
 <template>
-	<view class="wrap">
-		<view class="key-input">
-			<view class="title">输入验证码</view>
-			<view class="tips">验证码已发送至 +{{maskPhone}}</view>
-			<u-message-input :focus="true" :value="smsCode" @finish="finish" @change="change" mode="bottomLine" :maxlength="maxlength"></u-message-input>
-			<text :class="{ error: error }">验证码错误，请重新输入</text>
-			<view class="captcha">
-				<!-- :class="{ regain: !show }" -->
-				<text  class='regain' @click='getSmsCodeAgain'>{{ second ? `${second}秒后可以重新获取验证码` : `重新获取验证码`}}</text>
-		     <!--  <text :class="{ noCaptcha: !show }" @tap="noCaptcha">收不到验证码点这里</text> -->
+	<view style='position:relative;'>
+		<view class='back' @click='handleTest'>
+			<u-icon
+			name="arrow-left"
+			color="#585E6D"></u-icon>
+		</view>
+		<view class="wrap">
+			<view class="key-input">
+				<view class="title">输入验证码</view>
+				<view class="tips">验证码已发送至 +{{maskPhone}}</view>
+				<u-message-input :focus="true" :value="smsCode" @finish="finish" @change="change" mode="bottomLine" :maxlength="maxlength"></u-message-input>
+				<text :class="{ error: error }">验证码错误，请重新输入</text>
+				<view class="captcha">
+					<!-- :class="{ regain: !show }" -->
+					<text  class='regain' @click='getSmsCodeAgain'>{{ second ? `${second}秒后可以重新获取验证码` : `重新获取验证码`}}</text>
+			     <!--  <text :class="{ noCaptcha: !show }" @tap="noCaptcha">收不到验证码点这里</text> -->
+				</view>
 			</view>
 		</view>
 	</view>
@@ -39,6 +46,9 @@ export default {
 		
 	},
 	methods: {
+		handleTest(){
+		  console.log(123)	
+		},
 		// 收不到验证码选择时的选择
 		noCaptcha() {
 			uni.showActionSheet({
@@ -115,6 +125,11 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.back {
+	position:absolute;
+	left:20rpx;
+	top:20rpx
+}
 .wrap {
 	padding: 80rpx;
 }

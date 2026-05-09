@@ -1,21 +1,12 @@
 <template>
 	<view class='page safe-bottom'>
 		<view class="main">
-
-			<view class="back" @click="handleBack">
-				<view class="icon">
-					<u-icon 
-					name='arrow-left' 
-					color="#585E6D"></u-icon>
-				</view>
-				<view class="txt">
-					返回
-				</view>
-			</view>
-<!-- 			<u-navbar
+			<u-navbar
 			back-text="返回"
 			height='36'
-			back-icon-size='30'></u-navbar> -->
+			back-icon-size='30'
+			:background="background">
+			</u-navbar>
 			<view class='detailList'>
 				<orderInfo v-for="item in orderInfoList" :key="item.id" :list='item'></orderInfo>
 			</view>
@@ -30,6 +21,9 @@
 	export default {
 		data() {
 			return {
+				background: {
+					background:'#F5F6F7'
+				},
 				orderInfoList:[
 					{
 						id:1,
@@ -143,6 +137,9 @@
 </script>
 
 <style lang="scss" scoped>
+::v-deep .u-navbar .u-back-text {
+	  white-space: nowrap;
+}
 .safe-bottom {
 	    padding-bottom: constant(safe-area-inset-bottom);
 	    padding-bottom: env(safe-area-inset-bottom);

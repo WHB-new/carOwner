@@ -1,6 +1,5 @@
 <template>
 	<view class="page safe-bottom">
-		<!-- <navBar title="我的"></navBar> -->
 		<view class="main">
 			<view class='userInfo'>
 			 <view style="margin-left: 8px;heigth:40rpx;display:flex;justify-content: center;align-items: center; margin-top:28px;">
