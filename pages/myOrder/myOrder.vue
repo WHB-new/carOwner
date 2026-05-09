@@ -117,9 +117,15 @@
 					}
 				],
 				orderList:[],
+				requestTask:new Set(),// 维护发送的请求
 			};
 		},
 		methods: {
+			abortAllRequest(){
+				requestTask.forEach(item => {
+					
+				})
+			},
 			handleTabChange(index) {
 				this.tabCurrent = index;
 				this.orderList = []

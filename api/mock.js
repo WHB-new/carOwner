@@ -1,8 +1,15 @@
 import order from './order.js';
 
 export function apiOrder(pageNum, pageSize) {
-	return new Promise((resolve, reject)=>{
-		setTimeout(()=>{
+	let isAborted = false;//是否取消 模拟
+	let timer = null;
+	const promise = new Promise((resolve, reject)=>{
+		timer = setTimeout(()=>{
+			if (isAborted) {
+			  // 已经取消，不再 resolve，而是 reject 取消错误
+			  reject({ name: 'AbortError', message: '请求已取消（模拟）' });
+			  return;
+			}
 			try {
 				let data = {
 					list: [], // 数据列表
@@ -23,6 +30,16 @@ export function apiOrder(pageNum, pageSize) {
 			} catch(e){
 				console.log(e);
 			}
+			
+			 promise.abort = () => {
+			    if (isAborted) return;
+			    isAborted = true;
+			    if (timeoutId) {
+			      clearTimeout(timeoutId);
+			      timeoutId = null;
+			    }
+			  };
 		}, 1000);
 	})
+	return promise
 }
