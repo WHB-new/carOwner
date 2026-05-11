@@ -70,5 +70,20 @@
         "enable" : false
     },
     "vueVersion" : "2",
-	"sassImplementationName": "node-sass"
+	"sassImplementationName": "node-sass",
+	"h5": {
+	  "devServer": {
+	    "port": 8080,
+	    "disableHostCheck": true,
+	    "proxy": {
+	      "/parking-api/user-server": {
+	        "target": "http://120.24.79.108",
+	        "changeOrigin": true,
+	        "pathRewrite": {
+	          "^/parking-api/user-server": "/parking-api/user-server"
+	        }
+	      }
+	    }
+	  }
+	}
 }

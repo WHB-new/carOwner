@@ -1,5 +1,8 @@
 <template>
 <view class="page safe-bottom">
+	<view class="status_bar">
+		
+	</view>
 	<view class="main">
 		<view class="img">
 			<u-swiper :list="adList" img-mode='scaleToFill'></u-swiper>
@@ -11,7 +14,7 @@
 				</view>
 			</view>
 			<view class="recommend-main">
-				<view class="recommend-box" v-for="(item) in recommentList" :key="item.id">
+				<view class="recommend-box" v-for="(item) in recommentList" :key="item.id" @click='handleTest'>
 					<view class="box-left">
 						<view class="text">
 							{{item.title}}
@@ -97,12 +100,21 @@
 
 		},
 		methods: {
-
+			handleTest(){
+				uni.redirectTo({
+					url:'/pages/login/login'
+				})
+			}
 		}
 	}
 </script>
 
 <style lang="scss" scoped>
+.status_bar {
+        height: var(--status-bar-height);
+        width: 100%;
+        background-color: transparent; 
+}
 .safe-bottom {
     padding-bottom: constant(safe-area-inset-bottom);
     padding-bottom: env(safe-area-inset-bottom);

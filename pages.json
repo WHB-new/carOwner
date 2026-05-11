@@ -64,15 +64,15 @@
 			{
 				"pagePath": "pages/index/index",
 				"text": "首页",
-				"iconPath": "/static/home.svg",
-				"selectedIconPath": "/static/home-selected.svg"
+				"iconPath": "/static/home.png",
+				"selectedIconPath": "/static/home-selected.png"
 				
 			},
 			{
 				"pagePath": "pages/user/user",
 				"text": "我的",
-				"iconPath": "/static/user.svg",
-				"selectedIconPath": "/static/user-selected.svg"
+				"iconPath": "/static/user.png",
+				"selectedIconPath": "/static/user-selected.png"
 			}
 		]
 	}

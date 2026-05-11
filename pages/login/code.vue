@@ -83,6 +83,7 @@ export default {
 				bizId:this.bizId,
 				appType:'30'
 			})
+			console.log(res.code, res.data, 'res')
 			if(res.code === 0 && res.data){
 				const tempPath = uni.getStorageSync('TEMP_PATH')
 				uni.setStorageSync('userToken',res.data.accessToken)

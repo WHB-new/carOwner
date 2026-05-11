@@ -7,7 +7,8 @@
 					 <u-navbar
 					 back-text="返回"
 					 back-icon-size="28"
-					 :custom-back="handleBackToUser">
+					 :custom-back="handleBackToUser"
+					 height='36'>
 						 
 					 </u-navbar>
                      <u-tabs
@@ -139,7 +140,7 @@
 				this.mescroll.resetUpScroll();
 			},
 			handleBackToUser() {
-				uni.redirectTo({
+				uni.switchTab({
 					url:'/pages/user/user'
 				})
 			},
@@ -191,8 +192,21 @@
 
 <style lang="scss" scoped>
 	// 不允许换行 否则uView的导航栏设置back-text超过两个字会出现问题
-	::v-deep .u-navbar .u-back-text {
-	  white-space: nowrap;
+	::v-deep .u-navbar {
+		.u-back-text {
+			white-space: nowrap;
+		}
+		.u-back-wrap {
+			padding-left:9px;
+		}
+	}
+	// 不知道什么原因 直接使用的时候会出现背景上下不对称不均匀，强行让其居中
+	::v-deep .u-subsection {
+		.u-item-bg {
+			top: 50% !important;
+			bottom: auto !important;
+			transform: translateY(-50%) !important;
+		}
 	}
 	/*根元素需要有固定的高度*/
 	page{
@@ -216,30 +230,6 @@
 				font-size: 28rpx;
 				// padding: 20rpx;
 				text-align: center;
-				.back {
-					background-color: #ffffff;
-					padding-left:12rpx;
-					padding-top:7px;
-					display:flex;
-					align-items: center;
-					.icon {
-						width: 14px;
-						height: 14px;
-						display:flex;
-						justify-content: center;
-						align-items: center;
-					}
-					.txt {
-						font-family: PingFang SC;
-						font-size: 14px;
-						font-weight: normal;
-						line-height: 22px;
-						text-align: center;
-						letter-spacing: normal;
-						color: #585E6D;
-					}
-				}
-				
 			}
 			
 			/* 中间 */

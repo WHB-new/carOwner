@@ -13,6 +13,7 @@ const actions = {
 		console.log(state.userInfo,'userInfo')
 		if (Object.keys(state.userInfo).length !== 0) return;
 		apiUserInfo().then((res)=>{
+			console.log(res,' 看一下res')
 			if (res.code === 0 && res.data) {
 				commit('GET_USERINFO', res.data)
 				console.log('进来了吗',res.data)

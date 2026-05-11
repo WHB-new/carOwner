@@ -1,4 +1,9 @@
-const baseUrl = 'http://120.24.79.108/parking-api/user-server';//后面分环境
+let baseUrl = 'http://120.24.79.108/parking-api/user-server';//后面分环境
+// #ifdef H5
+if (process.env.NODE_ENV === 'development') {
+  baseUrl = '/parking-api/user-server';   // 开发环境 H5 使用相对路径
+}
+// #endif
 let isRedirecting = false // 防止多次跳转
 const newRequest = (options = {}) => {
 	console.log('发送请求')

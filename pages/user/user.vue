@@ -1,5 +1,8 @@
 <template>
 	<view class="page safe-bottom">
+		<view class="status_bar">
+			
+		</view>
 		<view class="main">
 			<view class='userInfo'>
 			 <view style="margin-left: 8px;heigth:40rpx;display:flex;justify-content: center;align-items: center; margin-top:28px;">
@@ -190,7 +193,6 @@
 			}
 		},
 		onShow(e){
-			console.log('发送请求')
 			this.$store.dispatch('user/getUserInfo')
 		},
 		computed:{
@@ -202,6 +204,11 @@
 </script>
 
 <style lang="scss" scoped>
+.status_bar {
+	        height: var(--status-bar-height);
+	        width: 100%;
+	        background-color: transparent; 
+}
 .safe-bottom {
 	    padding-bottom: constant(safe-area-inset-bottom);
 	    padding-bottom: env(safe-area-inset-bottom);
@@ -214,8 +221,8 @@
 	.main {
 		padding: 0 12px;
 		flex:1;
-		mix-blend-mode: color-burn;
-		background: url(@/static/image.png);
+		// mix-blend-mode: color-burn;
+		background: url('/static/image.png');
 		filter: opacity(0.699999988079071);
 		.userInfo {
 			display:flex;

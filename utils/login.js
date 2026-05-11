@@ -1,6 +1,5 @@
 const WHITE_LIST = ['/pages/login/login',
                     '/pages/index/index',
-                    '/pages/user/user',
 					'/pages/login/code'];
 const LOGIN_PAGE = '/pages/login/login';
 // 不需要switchTab因为两个都可以不登录显示
