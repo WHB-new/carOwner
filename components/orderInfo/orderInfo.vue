@@ -63,9 +63,6 @@
 				return this.isEletro ? this.orderInfoList.infoList.reduce((sum, item) => sum + item.value, 0) : 0
 			}
 		},
-		mounted(){
-			console.log(this.isImg)
-		}
 	}
 </script>
 

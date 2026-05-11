@@ -63,7 +63,6 @@
 	import { apiOrder } from '../../api/mock'
 	import order from '@/components/order/order.vue'
 	import MescrollMixin from "@/uni_modules/mescroll-uni/components/mescroll-uni/mescroll-mixins.js"
-	import emptyIcon from '@/static/1.png'
     import { checkNeedToLogin } from '../../utils/login'
 	export default {
 		mixins: [MescrollMixin], // 使用mixin
@@ -71,11 +70,7 @@
 			return {
 				// mescroll
 				downOption: {
-					offset: 50,
-					inOffsetRate: 1,
-					outOffsetRate: 0.2,
-					bottomOffset: 20,
-					minAngle: 45,
+					offset: 40,
 					textInOffset: '下拉刷新',
 					textOutOffset: '松手刷新',
 					textLoading: '刷新中 ...'
@@ -107,7 +102,6 @@
 					},
 				],
 				tabCurrent:0,
-				// orderTabs
 				orderCurrent:0,
 				order:[
 					{
@@ -132,7 +126,6 @@
 				this.tabCurrent = index;
 				this.orderList = []
 				this.mescroll.resetUpScroll()
-				// 发请求请求数据
 			},
 			handleOrderChange(index) {
 				this.orderCurrent = index;
@@ -156,6 +149,7 @@
 			},
 			async upCallback(page){
 				// 删除前面的请求，防止tabs切换出现数据不对的问题
+				// 拿到请求的promise
 				const task = apiOrder(page.num, page.size, this.tabCurrent)
 				try {
 					// 最开始的第一轮发送的所有请求不用触发取消
@@ -173,8 +167,6 @@
 					this.mescroll.endByPage(curPageLen, totalPage);
 				}catch(err){
 					console.log(err)
-				}finally{
-					this.requestTask.delete(task.abort);
 				}
 			}
 		},

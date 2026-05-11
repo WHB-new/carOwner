@@ -3,7 +3,6 @@ export const throttle = (fn, delay) => {
 	return function(...args) {
 		const now = Date.now();
 		if (now - last > delay) {
-			console.log('触发一次')
 			last = now;
 			return fn.apply(this, args)
 		}

@@ -88,15 +88,11 @@
 </template>
 
 <script>
-	import navBar from '@/components/navBar/navBar.vue'
 	import userIcon from '@/static/userIcon.svg'
 	import tempStop from '@/static/temp-stop.svg'
 	import invoice from '@/static/Invoice.svg'
 	import { checkNeedToLogin } from '../../utils/login'
 	export default {
-		components: {
-			navBar,
-		},
 		data() {
 			return {
 				userIcon:userIcon,
@@ -192,7 +188,7 @@
 				})
 			}
 		},
-		onShow(e){
+		onShow(){
 			this.$store.dispatch('user/getUserInfo')
 		},
 		computed:{

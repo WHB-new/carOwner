@@ -93,9 +93,6 @@
 				  "充电时长": 'eletro'
 				}
 			};
-		},
-		onLoad() {
-			console.log(orderInfo)
 		}
 	}
 </script>

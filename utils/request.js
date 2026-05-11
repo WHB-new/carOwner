@@ -1,12 +1,11 @@
-let baseUrl = 'http://120.24.79.108/parking-api/user-server';//后面分环境
+let baseUrl = 'http://120.24.79.108/parking-api/user-server';
 // #ifdef H5
 if (process.env.NODE_ENV === 'development') {
-  baseUrl = '/parking-api/user-server';   // 开发环境 H5 使用相对路径
+  baseUrl = '/parking-api/user-server'; 
 }
 // #endif
 let isRedirecting = false // 防止多次跳转
 const newRequest = (options = {}) => {
-	console.log('发送请求')
 	const reqOptions = {
 		url: baseUrl + options.url,
 		method:options.method || 'GET',
@@ -19,7 +18,7 @@ const newRequest = (options = {}) => {
 	}
 	if (uni.getStorageSync('userToken')) {
 	    reqOptions.header.token = uni.getStorageSync('userToken')
-	  }
+	}
 	let requestTask = null;       // 存放任务对象
 	let isAborted = false;        // 标记请求是否被手动取消
 	const promise = new Promise((resolve, reject)=> {
@@ -29,8 +28,9 @@ const newRequest = (options = {}) => {
 				if (isAborted) return;
 				if (res.statusCode === 200) {
 					resolve(res.data);
-				} else if (res.statusCode === 401) {
-					reject({ code: 401, message: '登录已过期，请重新登录' })
+					return;
+				} 
+				if (res.statusCode === 401) {
 					if (!isRedirecting) {
 						isRedirecting = true
 						// 防止多个请求401导致反复跳转
@@ -39,11 +39,12 @@ const newRequest = (options = {}) => {
 						},2000)
 						uni.removeStorageSync('userToken')
 						uni.navigateTo({ url: '/pages/login/login' })
-					}
-
-				} else {
-					reject(res.data)
+						}
+					reject({ code: 401, message: '登录已过期，请重新登录' })
+					return;
 				}
+				
+				reject(res.data)
 			},
 			fail:() => {
 				if (isAborted) {
@@ -61,7 +62,6 @@ const newRequest = (options = {}) => {
 		if (requestTask && !isAborted) {
 			isAborted = true;
 			requestTask.abort()
-			console.log('触发了主动取消abort',requestTask, isAborted)
 		}
 	}
 	return promise

@@ -1,12 +1,11 @@
 import order from './order.js';
 
 export function apiOrder(pageNum, pageSize, type) {
-	let isAborted = false;//是否取消 模拟
+	let isAborted = false;//是否取消
 	let timer = null;
 	const promise = new Promise((resolve, reject)=>{
 		timer = setTimeout(()=>{
 			if (isAborted) {
-			  // 已经取消，不再 resolve，而是 reject 取消错误
 			  reject({ name: 'AbortError', message: '请求已取消（模拟）' });
 			  return;
 			}
@@ -48,7 +47,6 @@ export function apiOrder(pageNum, pageSize, type) {
 	   isAborted = true;
 	   if (timer) {
 	     clearTimeout(timer);
-		 console.log('成功取消这次请求了')
 	     timer = null;
 	   }
 	 };

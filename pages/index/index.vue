@@ -14,7 +14,7 @@
 				</view>
 			</view>
 			<view class="recommend-main">
-				<view class="recommend-box" v-for="(item) in recommentList" :key="item.id" @click='handleTest'>
+				<view class="recommend-box" v-for="(item) in recommentList" :key="item.id">
 					<view class="box-left">
 						<view class="text">
 							{{item.title}}
@@ -38,18 +38,14 @@
 </template>
 
 <script>
-	import navBar from '@/components/navBar/navBar.vue';
 	//图片相关
 	import adImg from '@/static/ad.png'
 	import car from '@/static/icon-car.svg'
 	import add from '@/static/icon-add.svg'
 	export default {
-		components: {
-			navBar,
-		},
 		data() {
 			return {
-				src:adImg,// 首页图片
+				// 推荐服务
 				recommentList:[
 					{
 						title:'临停缴费',
@@ -98,18 +94,12 @@
 		},
 		onLoad() {
 
-		},
-		methods: {
-			handleTest(){
-				uni.redirectTo({
-					url:'/pages/login/login'
-				})
-			}
 		}
 	}
 </script>
 
 <style lang="scss" scoped>
+// 留出状态栏的高度
 .status_bar {
         height: var(--status-bar-height);
         width: 100%;

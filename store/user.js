@@ -1,8 +1,6 @@
 import { getUserInfo as apiUserInfo, getSmsCode as apiSmsCode } from "../api/login"
 const state = () => ({
-  userInfo: {
-	  
-  },
+  userInfo: {},
   bizId:'',
   userPhone:'',
 })
@@ -10,13 +8,10 @@ const actions = {
 	// 获取用户信息
 	getUserInfo({commit,state}){
 		// 防止userInfo存在时重复发送请求
-		console.log(state.userInfo,'userInfo')
 		if (Object.keys(state.userInfo).length !== 0) return;
 		apiUserInfo().then((res)=>{
-			console.log(res,' 看一下res')
 			if (res.code === 0 && res.data) {
 				commit('GET_USERINFO', res.data)
-				console.log('进来了吗',res.data)
 			}
 		}).catch(err=>{
 			console.log(err)
@@ -25,7 +20,6 @@ const actions = {
 	// 获取验证码
 	async getSmsCode({commit, state}) {
 		let res = await apiSmsCode(state.userPhone);
-		console.log(state.userPhone, res)
 		if (res.code === 0 && res.data) {
 			commit('GET_SMSCODE', res.data.bizId)
 		}
@@ -44,7 +38,6 @@ const mutations = {
 		state.bizId = item
 	},
 	SAVE_USERPHONE(state, item) {
-		console.log(item)
 		state.userPhone = item
 	}
 }

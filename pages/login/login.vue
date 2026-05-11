@@ -32,7 +32,6 @@
 </template>
 
 <script>
-	import { throttle } from '@/utils/common.js'
 	export default {
 		data() {
 			return {
@@ -57,13 +56,13 @@
 					uni.navigateTo({
 						url:'/pages/login/code'
 					})
-				} else {
-					uni.showToast({
-						title:'请输正确手机号',
-						icon:'error',
-						duration:1500,
-					})
+					return;
 				}
+				uni.showToast({
+					title:'请输正确手机号',
+					icon:'error',
+					duration:1500,
+				})
 			},
 		   throttleSubmit() {
 			   this.$u.throttle(this.submit, 1500)

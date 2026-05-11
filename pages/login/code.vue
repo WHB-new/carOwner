@@ -1,6 +1,6 @@
 <template>
 	<view style='position:relative;'>
-		<view class='back' @click='handleTest'>
+		<view class='back' @click='handleBack'>
 			<u-icon
 			name="arrow-left"
 			color="#585E6D"></u-icon>
@@ -46,7 +46,7 @@ export default {
 		
 	},
 	methods: {
-		handleTest(){
+		handleBack(){
 		  uni.redirectTo({
 		  	url:'/pages/login/login'
 		  })
@@ -63,6 +63,7 @@ export default {
 				}
 			});
 		},
+		// 重新获取验证码
 		getSmsCodeAgain(){
 			if (this.second !== 0) return;
 			this.$store.dispatch('user/getSmsCode')
@@ -85,10 +86,10 @@ export default {
 				bizId:this.bizId,
 				appType:'30'
 			})
-			console.log(res.code, res.data, 'res')
 			if(res.code === 0 && res.data){
 				const tempPath = uni.getStorageSync('TEMP_PATH')
 				uni.setStorageSync('userToken',res.data.accessToken)
+				// 如果有临时地址 也就是从别的网页被拦截进入登录页
 				if (tempPath) {
 					uni.redirectTo({
 						url:tempPath,
@@ -101,12 +102,11 @@ export default {
 							})
 						}
 					})
-				}else {
-					uni.switchTab({
-						url:'/pages/user/user'
-					})
+					return;
 				}
-
+				uni.switchTab({
+					url:'/pages/user/user'
+				})
 			}else {
 				this.error = true;
 			}
@@ -122,6 +122,12 @@ export default {
 		maskPhone(){
 			if (!this.phone || this.phone.length !== 11) return this.phone
 			return this.phone.substring(0, 3) + '****' + this.phone.substring(7)
+		}
+	},
+	onLoad(){
+		// 必须要通过login页面进入
+		if (!this.phone) {
+			this.handleBack()
 		}
 	}
 };
