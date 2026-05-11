@@ -47,7 +47,9 @@ export default {
 	},
 	methods: {
 		handleTest(){
-		  console.log(123)	
+		  uni.redirectTo({
+		  	url:'/pages/login/login'
+		  })
 		},
 		// 收不到验证码选择时的选择
 		noCaptcha() {
